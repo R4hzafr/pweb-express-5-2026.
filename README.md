@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MLBB Shop - Bagian Orang 1
 
 Starter project backend untuk bagian anggota pertama praktikum Pemrograman Web Modul 4.
@@ -160,3 +161,6 @@ mlbb-shop-orang-1/
 - Jalankan migration dan seed.
 - Jalankan server, uji endpoint dengan Postman, dan pahami alur controller karena setiap anggota wajib menjelaskan bagiannya saat demo.
 - Setelah semua anggota menggabungkan fitur, jalankan ulang seluruh testcase modul.
+=======
+# pweb-express-5-2026.
+>>>>>>> f0020633c02b02e355acebdfeb17189db335c687
