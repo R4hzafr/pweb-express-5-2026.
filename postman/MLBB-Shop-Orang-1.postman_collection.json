@@ -1,0 +1,73 @@
+{
+  "info": {
+    "_postman_id": "b2c3d4e5-f6a7-4890-a123-456789abcdef",
+    "name": "MLBB Shop - Bagian Orang 1 (Health, Hero, Skin)",
+    "description": "Test endpoint yang dikerjakan anggota pertama. Ganti baseUrl bila port berbeda.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET Health",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/health" }
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "item": [
+        {
+          "name": "GET Semua Hero (Pagination)",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/heroes?page=1&limit=10" }
+        },
+        {
+          "name": "GET Hero - Search Miya",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/heroes?search=miya" }
+        },
+        {
+          "name": "GET Hero - Filter Role Marksman",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/heroes?role=MARKSMAN" }
+        },
+        {
+          "name": "GET Detail Hero Miya (ID 1)",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/heroes/1" }
+        },
+        {
+          "name": "POST Tambah Hero Contoh",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Hero Praktikum Baru\",\n  \"role\": \"MAGE\",\n  \"lane\": \"MID\",\n  \"releaseYear\": 2026,\n  \"priceBP\": 32000,\n  \"priceDiamond\": 599\n}" },
+            "url": "{{baseUrl}}/api/heroes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Skin",
+      "item": [
+        {
+          "name": "GET Semua Skin (Pagination)",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/skins?page=1&limit=10" }
+        },
+        {
+          "name": "GET Skin milik Hero ID 18",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/skins?heroId=18" }
+        },
+        {
+          "name": "GET Skin Rarity GRAND",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/skins?rarity=GRAND" }
+        },
+        {
+          "name": "GET Detail Skin ID 1",
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/skins/1" }
+        }
+      ]
+    }
+  ]
+}

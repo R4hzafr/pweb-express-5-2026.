@@ -1,0 +1,23 @@
+MLBB SHOP - BAGIAN ORANG 1
+
+PENTING: Folder ini adalah project BACKEND Express + TypeScript, bukan project HTML Live Server.
+
+CARA MEMBUKA:
+1. Extract file ZIP terlebih dahulu.
+2. Buka VS Code.
+3. Pilih File > Open Folder.
+4. Pilih folder hasil extract bernama mlbb-shop-orang-1 (atau folder MLBB-Shop-Orang-1 jika nama folder diubah).
+5. Pastikan Explorer menampilkan package.json, prisma/, src/, data/, dan postman/.
+
+CARA MENJALANKAN:
+1. Buka Terminal di VS Code.
+2. Jalankan: npm install
+3. Untuk tes server health tanpa database: npm run dev
+4. Buka browser: http://localhost:3000/health
+5. Untuk fitur database, salin .env.example menjadi .env dan isi DATABASE_URL serta DIRECT_URL dari Neon.
+6. Unduh heroes.json dan skins.json dari link dataset pada data/README.md.
+7. Jalankan: npx prisma migrate dev --name init
+8. Jalankan: npx prisma generate
+9. Jalankan: npm run db:seed
+
+JANGAN commit file .env ke GitHub.
