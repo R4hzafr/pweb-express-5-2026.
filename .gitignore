@@ -3,12 +3,7 @@ dist/
 .env
 .env.*
 !.env.example
+.neon
 src/generated/prisma/
 .DS_Store
 npm-debug.log*
-
-.env
-.env.*
-!.env.example
-node_modules/
-dist/

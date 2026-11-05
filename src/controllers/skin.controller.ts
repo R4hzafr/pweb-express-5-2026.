@@ -7,8 +7,8 @@ import { getPagination } from "../utils/pagination.js";
 const rarities = ["COMMON", "EXCEPTIONAL", "DELUXE", "EXQUISITE", "GRAND", "SUPREME"] as const;
 type RarityValue = (typeof rarities)[number];
 
-function parseId(value: string, label: string): number {
-  const id = Number(value);
+function parseId(value: string | string[], label: string): number {
+  const id = Number(Array.isArray(value) ? value[0] : value);
   if (!Number.isInteger(id) || id < 1) {
     throw new HttpError(400, `${label} harus berupa bilangan bulat positif`);
   }

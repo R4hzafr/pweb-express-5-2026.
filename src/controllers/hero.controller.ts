@@ -9,8 +9,8 @@ const lanes = ["EXP", "GOLD", "MID", "JUNGLE", "ROAM"] as const;
 type RoleValue = (typeof roles)[number];
 type LaneValue = (typeof lanes)[number];
 
-function parseId(value: string, label: string): number {
-  const id = Number(value);
+function parseId(value: string | string[], label: string): number {
+  const id = Number(Array.isArray(value) ? value[0] : value);
   if (!Number.isInteger(id) || id < 1) {
     throw new HttpError(400, `${label} harus berupa bilangan bulat positif`);
   }
@@ -137,4 +137,6 @@ export async function createHero(req: Request, res: Response): Promise<void> {
     }
     throw error;
   }
+
+  //router.post('/api/players/:player_id/heroes', buyHeroController);
 }

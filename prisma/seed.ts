@@ -29,11 +29,54 @@ function readArray<T>(raw: unknown, fileName: string): T[] {
   throw new Error(`${fileName} harus berisi JSON array atau object dengan properti data berupa array.`);
 }
 
+// Helper sederhana untuk mem-parsing file CSV string menjadi array object
+function parseCSV<T>(csvText: string): T[] {
+  const lines = csvText.trim().split("\n");
+  if (lines.length < 2) return [];
+
+  // Ambil header dari baris pertama
+  const headers = lines[0].split(",").map((h) => h.trim().replace(/^["']|["']$/g, ""));
+  const rows: T[] = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const currentLine = lines[i].trim();
+    if (!currentLine) continue;
+
+    // Regex sederhana untuk memisahkan koma di luar tanda kutip
+    const values = currentLine.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map((v) =>
+      v.trim().replace(/^["']|["']$/g, "")
+    );
+
+    const obj: Record<string, any> = {};
+    headers.forEach((header, index) => {
+      let val: any = values[index];
+      if (val === undefined || val === "" || val === "NaN") {
+        val = null;
+      }
+      obj[header] = val;
+    });
+    rows.push(obj as T);
+  }
+
+  return rows;
+}
+
 function nullableNumber(value: number | string | null): number | null {
   if (value === null || value === "") return null;
   const numberValue = Number(value);
   if (!Number.isInteger(numberValue)) throw new Error(`Nilai harga tidak valid: ${value}`);
   return numberValue;
+}
+
+async function readDataset<T>(jsonPath: string, csvPath: string): Promise<T[]> {
+  try {
+    const raw = await fs.readFile(jsonPath, "utf8");
+    return readArray<T>(JSON.parse(raw), path.basename(jsonPath));
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    const csv = await fs.readFile(csvPath, "utf8");
+    return parseCSV<T>(csv);
+  }
 }
 
 const connectionString = process.env.DATABASE_URL;
@@ -48,13 +91,10 @@ async function main(): Promise<void> {
   const heroesPath = path.resolve("data/heroes.json");
   const skinsPath = path.resolve("data/skins.json");
 
-  const [heroesRaw, skinsRaw] = await Promise.all([
-    fs.readFile(heroesPath, "utf8"),
-    fs.readFile(skinsPath, "utf8")
+  const [heroes, skins] = await Promise.all([
+    readDataset<HeroDatasetRow>(heroesPath, path.resolve("data/heroes.csv")),
+    readDataset<SkinDatasetRow>(skinsPath, path.resolve("data/skins.csv"))
   ]);
-
-  const heroes = readArray<HeroDatasetRow>(JSON.parse(heroesRaw), "heroes.json");
-  const skins = readArray<SkinDatasetRow>(JSON.parse(skinsRaw), "skins.json");
 
   if (heroes.length !== 133) {
     throw new Error(`Dataset hero seharusnya 133 data, tetapi ditemukan ${heroes.length}.`);

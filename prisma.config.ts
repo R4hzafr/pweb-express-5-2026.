@@ -7,8 +7,8 @@ export default defineConfig({
     path: "prisma/migrations",
     seed: "tsx prisma/seed.ts"
   },
-  // Prisma CLI memakai koneksi DIRECT_URL agar migration tidak melalui pooler.
+  // Prisma CLI memakai koneksi langsung (unpooled) agar migration tidak melalui pooler.
   datasource: {
-    url: env("DIRECT_URL")
+    url: process.env.DATABASE_URL_UNPOOLED ?? env("DIRECT_URL")
   }
 });

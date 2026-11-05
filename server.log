@@ -1,0 +1,24 @@
+MLBB Shop API berjalan di http://localhost:3000
+GET /health 200 - 4ms
+GET /api/heroes?role=MARKSMAN&limit=5 200 - 2004ms
+GET /api/heroes?search=la 200 - 287ms
+GET /api/heroes/18 200 - 592ms
+GET /api/heroes/999 404 - 293ms
+POST /api/heroes 201 - 825ms
+POST /api/heroes 409 - 248ms
+POST /api/heroes 400 - 1ms
+GET /api/skins?heroId=18 200 - 600ms
+GET /api/skins?rarity=GRAND 200 - 502ms
+GET /api/skins/891 200 - 519ms
+POST /api/players 201 - 511ms
+POST /api/players 409 - 240ms
+POST /api/players/3/topup 200 - 511ms
+POST /api/players/3/topup 400 - 1ms
+POST /api/players/3/matches 200 - 479ms
+POST /api/players/3/heroes 400 - 502ms
+POST /api/players/3/heroes 201 - 1907ms
+POST /api/players/3/heroes 201 - 2043ms
+POST /api/players/3/heroes 409 - 945ms
+POST /api/players/1/heroes 400 - 736ms
+GET /api/players/3 200 - 723ms
+GET / 404 - 1ms
